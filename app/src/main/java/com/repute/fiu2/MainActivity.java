@@ -32,8 +32,18 @@ public class MainActivity extends AppCompatActivity {
         outputStr = (TextView)findViewById(R.id.textView2);
         toConcat = (TextView)findViewById(R.id.editText);
 
-        outputStr.setText(printAllRunningActivities(getAllRunningActivities(getApplicationContext())));
+        //outputStr.setText(printAllRunningActivities(getAllRunningActivities(getApplicationContext())));
         //outputStr.setText(getProcessInfo());
+        outputStr.setText(getSharedUserId(getApplicationContext()));
+    }
+
+    public String getSharedUserId(Context context){
+        try {
+            return context.getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), PackageManager.GET_META_DATA).sharedUserId;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "NameNotFound";
+        }
     }
 
     public ArrayList<ActivityInformation> getSDKResources(){
